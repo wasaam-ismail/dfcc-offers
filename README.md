@@ -126,7 +126,7 @@ The site is a plain folder of files, so any web host works. The easiest free opt
 
 - The files live in the GitHub repository **dfcc-offers**. `index.html` must sit at the top level of the repo, not inside a sub-folder.
 - The **`CNAME`** file tells GitHub the web address (`dfcc.testingatdefyint.site`). Don't delete it.
-- The DNS record at Spaceship is **CNAME · host `dfcc` · value `cardkudu.github.io`**.
+- The DNS record at Spaceship is **CNAME · host `dfcc` · value `defyint.github.io`**.
 - **To update the live site:** open the repo on github.com → **Add file → Upload files** → drag in the changed files (for example `offers/offers.xlsx` into the `offers` folder) → **Commit changes**. The site refreshes within 1–2 minutes.
 - A `noindex` line in `index.html` keeps this test site out of Google. Remove it if this becomes an official page.
 
