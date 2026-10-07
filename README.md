@@ -126,7 +126,7 @@ The site is a plain folder of files, so any web host works. The easiest free opt
 
 - The files live in the GitHub repository **dfcc-offers**. `index.html` must sit at the top level of the repo, not inside a sub-folder.
 - The **`CNAME`** file tells GitHub the web address (`dfcc.testingatdefyint.site`). Don't delete it.
-- The DNS record at Spaceship is **CNAME · host `dfcc` · value `defyint.github.io`**.
+- The DNS record at Spaceship is **CNAME · host `dfcc` · value `YOUR-GITHUB-NAME.github.io` (the account or organisation that owns the repo)**.
 - **To update the live site:** open the repo on github.com → **Add file → Upload files** → drag in the changed files (for example `offers/offers.xlsx` into the `offers` folder) → **Commit changes**. The site refreshes within 1–2 minutes.
 - A `noindex` line in `index.html` keeps this test site out of Google. Remove it if this becomes an official page.
 
@@ -152,6 +152,18 @@ That's the only change needed to go live.
 - **Demo timings** are all in `DEMO_CONFIG` at the bottom of `settings.js`. Change `cycleDuration`, or each offer's `startAfter` and `duration` (in seconds). The upcoming demo offers use `startsInDays`, `startTime` and `lastsDays`.
 - **Demo controls:** a small "Demo" button sits bottom-left. It has Pause, Restart and Speed (1×, 2×, 5×). Press **D** on the keyboard to hide or show it during a presentation.
 - **Quick switch without editing:** add `?demo=off` or `?demo=on` to the end of the web address.
+
+## Campaign banner
+
+The hero uses the "Joy in Every Swipe" key visual, saved in `assets/img/` at three sizes (`banner-480.webp`, `banner-800.webp`, `banner-1100.webp`), plus `banner-800.png` for older browsers. Phones automatically download the small version and desktops the large one. To change the banner, replace those four files with new versions at the same names and sizes.
+
+## Sharing offers
+
+Every offer has a **Share** button (on the card, on the list row and inside the offer details):
+
+- **WhatsApp** opens WhatsApp with the offer text and link already filled in.
+- **Messenger** and **Instagram** don't allow websites to pre-fill a direct message. On phones, the button opens the phone's share sheet, where Messenger and Instagram appear. On computers, the link is copied and Messenger / Instagram messages open in a new tab, ready to paste.
+- **Copy link** copies a link that opens straight to that offer.
 
 ## Handy extras
 

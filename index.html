@@ -13,7 +13,7 @@
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Never Miss an Offer | DFCC Card Offers">
-  <meta property="og:description" content="The right offer. The right time. Before it's gone. Live DFCC card offers with real-time countdowns.">
+  <meta property="og:description" content="Joy in Every Swipe. Live DFCC card offers with real-time countdowns, so you never miss an offer.">
   <meta property="og:url" content="https://dfcc.testingatdefyint.site/">
   <meta property="og:image" content="https://dfcc.testingatdefyint.site/assets/img/og-image.jpg">
   <meta property="og:site_name" content="DFCC Bank">
@@ -43,22 +43,32 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO: campaign key visual + "Never miss an offer" + live summary -->
   <section class="hero" aria-labelledby="heroTitle">
     <div class="hero__shapes" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap hero__in">
-      <div class="hero__copy">
+      <div class="hero__art">
+        <h1 class="sr-only" id="heroTitle">Joy in Every Swipe: DFCC card offers</h1>
+        <!-- Responsive banner: phones download the small file, desktops the large one -->
+        <picture>
+          <source type="image/webp"
+                  srcset="assets/img/banner-480.webp 480w, assets/img/banner-800.webp 800w, assets/img/banner-1100.webp 1100w"
+                  sizes="(max-width: 600px) 92vw, (max-width: 920px) 520px, 600px">
+          <img class="hero__img" src="assets/img/banner-800.png" width="800" height="683"
+               alt="Joy in Every Swipe. A smiling woman holding a DFCC card, seated in a giant red festive bauble."
+               fetchpriority="high" decoding="async">
+        </picture>
+      </div>
+      <div class="hero__side">
         <p class="hero__eyebrow">DFCC card offers</p>
-        <h1 class="hero__title" id="heroTitle">Never miss<br>an offer</h1>
-        <p class="hero__sub">The right offer. The right time. Before it's gone.</p>
-        <p class="hero__body">Live and upcoming DFCC card offers that update themselves, second by second. No expired deals, just what you can use today and what's about to start.</p>
+        <h2 class="hero__title">Never miss an offer</h2>
         <ul class="stats" aria-label="Offer summary">
           <li><b id="statLive">0</b><span>Live now</span></li>
-          <li><b id="statSoon">0</b><span>Starting this week</span></li>
+          <li><b id="statSoon">0</b><span>This week</span></li>
           <li><b id="statLater">0</b><span>Coming up</span></li>
         </ul>
+        <div class="feature" id="feature" aria-live="off"></div>
       </div>
-      <div class="feature" id="feature" aria-live="off"></div>
     </div>
   </section>
 
@@ -129,6 +139,16 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
     <div id="modalBody"></div>
+  </dialog>
+
+  <!-- SHARE -->
+  <dialog class="sharedlg" id="shareDlg" aria-labelledby="shareTitle">
+    <button class="modal__x" data-share-close aria-label="Close sharing">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <p class="sharedlg__t" id="shareTitle">Share this offer</p>
+    <div class="sharedlg__o" id="shareWhat"></div>
+    <div id="shareBtns"></div>
   </dialog>
 
   <!-- DEMO CONTROLS (only visible when Demo Mode is ON; press D to hide) -->

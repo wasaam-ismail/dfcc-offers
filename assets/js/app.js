@@ -172,6 +172,11 @@
     card: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 10h19" stroke="currentColor" stroke-width="1.8"/></svg>',
     arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     ext: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    share: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="18.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1" stroke="currentColor" stroke-width="1.8"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.4-.3z"/></svg>',
+    messenger: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.1 7.1v3.3l3-1.7c.9.3 1.9.4 3 .4 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 4.9-2.7z"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3zm4 3.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM17.2 5.8a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>',
+    link: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
     bolt: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="currentColor"/></svg>',
   };
 
@@ -333,7 +338,8 @@
         '<p class="card__when">' + ICON.cal + "<span>" + esc(whenLine(o)) + "</span></p>" +
         '<div class="card__actions">' +
           '<button class="btn btn--primary" data-open="' + esc(o.id) + '">View offer</button>' +
-          (o.mapsUrl ? '<a class="btn btn--ghost" href="' + esc(o.mapsUrl) + '" target="_blank" rel="noopener">Directions</a>' : "") +
+          (o.mapsUrl ? '<a class="btn btn--ghost" href="' + esc(o.mapsUrl) + '" target="_blank" rel="noopener" aria-label="Directions to ' + esc(o.merchant) + ' on Google Maps">' + ICON.pin + "Map</a>" : "") +
+          shareBtnHTML(o) +
         "</div>" +
       "</div></article>";
   }
@@ -347,8 +353,15 @@
         "<span>" + esc(whenLine(o)) + "</span></p></div>" +
       '<div class="row__val">' + offerValueHTML(o) + "</div>" +
       cdHTML(v, "row") +
-      '<span class="row__go" aria-hidden="true">' + ICON.arrow + "</span>" +
+      '<div class="row__acts">' +
+        (o.mapsUrl ? '<a class="btn btn--ghost btn--sm" href="' + esc(o.mapsUrl) + '" target="_blank" rel="noopener" aria-label="Directions to ' + esc(o.merchant) + ' on Google Maps">' + ICON.pin + "<span>Map</span></a>" : "") +
+        shareBtnHTML(o, true) +
+      "</div>" +
     "</article>";
+  }
+
+  function shareBtnHTML(o, small) {
+    return '<button class="btn btn--ghost btn--icon' + (small ? " btn--sm" : "") + '" data-share-open="' + esc(o.id) + '" aria-label="Share offer: ' + esc(o.merchant) + '" title="Share">' + ICON.share + "</button>";
   }
 
   function emptyHTML(sec, filtered, nextUp) {
@@ -604,7 +617,7 @@
         '<dl class="dl">' +
           rowsHTML("Valid", esc(validity), ICON.cal) +
           rowsHTML("Eligible cards", esc(o.cardType || [o.credit ? "DFCC Credit Cards" : "", o.debit ? "DFCC Debit Cards" : ""].filter(Boolean).join(" & ")), ICON.card) +
-          rowsHTML("Address", esc(o.address), ICON.pin) +
+          rowsHTML("Address", o.address ? (o.mapsUrl ? '<a href="' + esc(o.mapsUrl) + '" target="_blank" rel="noopener">' + esc(o.address) + "</a>" : esc(o.address)) : "", ICON.pin) +
           rowsHTML("Opening hours", esc(o.hours), ICON.clock) +
         "</dl>" +
         '<div class="m__terms"><p class="m__terms-t">Terms &amp; conditions</p><p>' + esc(o.terms || S.TERMS_NOTE || "Conditions apply.") + "</p>" +
@@ -614,6 +627,7 @@
           (o.mapsUrl ? '<a class="btn ' + (o.url ? "btn--ghost" : "btn--primary") + '" href="' + esc(o.mapsUrl) + '" target="_blank" rel="noopener">Get directions ' + ICON.ext + "</a>" : "") +
           '<button class="btn btn--ghost" data-close>Back to offers</button>' +
         "</div>" +
+        '<div class="m__share"><p class="m__terms-t">Share this offer</p>' + shareListHTML(o) + "</div>" +
       "</div>";
     var dlg = $("#modal");
     if (!dlg.open) { dlg.showModal ? dlg.showModal() : dlg.setAttribute("open", ""); }
@@ -627,6 +641,97 @@
     document.body.classList.remove("modal-open");
     modalOffer = null;
     if (/^#offer=/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
+  }
+
+  /* ------------------------------------------------------------------
+     SHARING — WhatsApp, Messenger, Instagram, copy link
+     WhatsApp opens with the message pre-filled. Facebook and Instagram
+     don't allow websites to pre-fill a DM, so on phones we open the
+     phone's share sheet (where Messenger / Instagram appear), and on
+     computers we copy the link and open the inbox to paste it.
+     ------------------------------------------------------------------ */
+  var IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
+  function shareUrl(o) {
+    var base = /^https?:/.test(location.protocol) ? location.origin + location.pathname : location.href.split("#")[0];
+    return base + "#offer=" + encodeURIComponent(o.id);
+  }
+  function shareText(o) {
+    var c = o.credit && o.credit.pct, d = o.debit && o.debit.pct, deal;
+    if (c != null && d != null) deal = (c === d ? c + "% off" : "Up to " + Math.max(c, d) + "% off");
+    else if (c != null || d != null) deal = (c != null ? c : d) + "% off";
+    else deal = o.offerText || "A DFCC card offer";
+    var when = o.source === "demo" && o.end - o.start < E.DAY_MS ? "today only" : E.fmtDate(o.start) + " – " + E.fmtDate(E.displayEnd(o));
+    return deal + " at " + o.merchant + " with DFCC Bank cards (" + when + "). Never miss an offer:";
+  }
+  function shareListHTML(o) {
+    var id = esc(o.id);
+    var b = function (kind, icon, label) { return '<button class="sh" data-share="' + kind + '" data-id="' + id + '">' + '<span class="sh__i">' + icon + "</span><span>" + label + "</span></button>"; };
+    return '<div class="shares">' +
+      b("whatsapp", ICON.whatsapp, "WhatsApp") +
+      b("messenger", ICON.messenger, "Messenger") +
+      b("instagram", ICON.instagram, "Instagram") +
+      b("copy", ICON.link, "Copy link") +
+      (navigator.share ? b("native", ICON.share, "More") : "") +
+    "</div>";
+  }
+  function copyText(t) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t).catch(function () { legacyCopy(t); });
+    legacyCopy(t); return Promise.resolve();
+  }
+  function legacyCopy(t) {
+    var ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    (topDialog() || document.body).appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} ta.remove();
+  }
+  function doShare(kind, o) {
+    var url = shareUrl(o), text = shareText(o), full = text + " " + url;
+    if (kind === "whatsapp") {
+      window.open("https://wa.me/?text=" + encodeURIComponent(full), "_blank", "noopener");
+    } else if (kind === "messenger") {
+      if (IS_MOBILE) {
+        copyText(full);
+        location.href = "fb-messenger://share/?link=" + encodeURIComponent(url);
+        setTimeout(function () { if (!document.hidden) { if (navigator.share) navigator.share({ title: "DFCC card offer", text: text, url: url }).catch(function () {}); else msgToast("Link copied. Paste it into a Messenger chat."); } }, 1500);
+      } else {
+        copyText(full);
+        window.open("https://www.facebook.com/messages/", "_blank", "noopener");
+        msgToast("Link copied. Paste it into a Messenger chat.");
+      }
+    } else if (kind === "instagram") {
+      if (IS_MOBILE && navigator.share) {
+        navigator.share({ title: "DFCC card offer", text: text, url: url }).catch(function () {});
+      } else {
+        copyText(full);
+        window.open("https://www.instagram.com/direct/inbox/", "_blank", "noopener");
+        msgToast("Link copied. Paste it into an Instagram message.");
+      }
+    } else if (kind === "native" && navigator.share) {
+      navigator.share({ title: "DFCC card offer", text: text, url: url }).catch(function () {});
+    } else {
+      copyText(full).then(function () { msgToast("Offer link copied."); });
+    }
+  }
+  function openShare(id) {
+    var o = byId[id] || allOffers().filter(function (x) { return x.id === id; })[0];
+    if (!o) return;
+    $("#shareWhat").innerHTML = logoHTML(o, "logo--sm") + "<span><b>" + esc(o.merchant) + "</b><small>" + esc(shareText(o).replace(/ Never miss an offer:$/, "")) + "</small></span>";
+    $("#shareBtns").innerHTML = shareListHTML(o);
+    var dlg = $("#shareDlg");
+    if (!dlg.open) dlg.showModal ? dlg.showModal() : dlg.setAttribute("open", "");
+  }
+  function closeShare() { var d = $("#shareDlg"); if (d.open) d.close ? d.close() : d.removeAttribute("open"); }
+  function topDialog() {
+    var s = $("#shareDlg"), m = $("#modal");
+    return (s && s.open) ? s : (m && m.open) ? m : null;
+  }
+  function msgToast(html) {
+    // toasts must live inside an open dialog to be visible above it
+    var parent = topDialog() || document.body, host = $(".toasts", parent);
+    if (!host) { host = document.createElement("div"); host.className = "toasts"; host.setAttribute("aria-live", "polite"); parent.appendChild(host); }
+    var t = document.createElement("div"); t.className = "toast";
+    t.innerHTML = '<span class="toast__i">' + ICON.link + "</span><span>" + html + "</span>";
+    host.appendChild(t);
+    setTimeout(function () { t.classList.add("is-out"); }, 3200);
+    setTimeout(function () { t.remove(); }, 3800);
   }
 
   /* ------------------------------------------------------------------
@@ -725,6 +830,14 @@
      ------------------------------------------------------------------ */
   function initEvents() {
     document.addEventListener("click", function (e) {
+      var sh = e.target.closest("[data-share],[data-share-open],[data-share-close]");
+      if (sh) {
+        e.preventDefault();
+        if (sh.hasAttribute("data-share-open")) openShare(sh.getAttribute("data-share-open"));
+        else if (sh.hasAttribute("data-share-close")) closeShare();
+        else { var so = byId[sh.getAttribute("data-id")] || allOffers().filter(function (x) { return x.id === sh.getAttribute("data-id"); })[0]; if (so) doShare(sh.getAttribute("data-share"), so); }
+        return;
+      }
       var t = e.target.closest("[data-open],[data-cat],[data-set],[data-unset],[data-clear],[data-more],[data-close],[data-tab-link]");
       if (!t) return;
       if (t.hasAttribute("data-open")) { e.preventDefault(); openOffer(t.getAttribute("data-open")); }
@@ -755,6 +868,10 @@
     var dlg = $("#modal");
     dlg.addEventListener("close", function () { document.body.classList.remove("modal-open"); if (/^#offer=/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search); });
     dlg.addEventListener("click", function (e) { if (e.target === dlg) closeModal(); });
+    var sdlg = $("#shareDlg");
+    sdlg.addEventListener("click", function (e) { if (e.target === sdlg) closeShare(); });
+    // a shared link opened while the page is already open
+    window.addEventListener("hashchange", function () { var m = location.hash.match(/^#offer=(.+)$/); if (m) openOffer(decodeURIComponent(m[1]), true); });
 
     // highlight the tab for the section in view
     var tabs = $$(".tab");
